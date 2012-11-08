@@ -1,0 +1,1 @@
+Small program to calculate and render point charges
