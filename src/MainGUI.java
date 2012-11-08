@@ -2,10 +2,13 @@ import java.awt.BorderLayout;
 import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -42,16 +45,45 @@ public class MainGUI extends JFrame {
 	{
 		JPanel display=new JPanel();
 		display.setLayout(new GridLayout(3,1));
+		
 		_cbColour = new Checkbox("Draw coloured", _coloured);
 		_cbColour.addItemListener(new CheckboxListener());
+		
 		_cbVectors = new Checkbox("Draw vectors", _drawVectors);
 		_cbVectors.addItemListener(new CheckboxListener());
+		
 		_cbField = new Checkbox("Draw field", _drawField);
 		_cbField.addItemListener(new CheckboxListener());
+		
 		display.add(_cbColour);
 		display.add(_cbVectors);
 		display.add(_cbField);
+		
 		this.getContentPane().add(display, BorderLayout.EAST);
+		
+		final JButton generate=new JButton("Generate");
+		generate.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				generate.setText("Generating...");
+				generate.setEnabled(false);
+				Thread t = new Thread()
+				{
+					public void run()
+					{
+						generateField();
+						render();
+						generate.setText("Generate");
+						generate.setEnabled(true);
+					}
+				};
+				t.start();
+			}
+			
+		});
+		this.getContentPane().add(generate, BorderLayout.SOUTH);
 	}
 	
 	private void initBase(int numCharges)
