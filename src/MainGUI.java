@@ -1,9 +1,13 @@
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 public class MainGUI extends JFrame {
@@ -16,16 +20,38 @@ public class MainGUI extends JFrame {
 	private int _height;
 	private int _numCharges;
 	private boolean _coloured=false;
+	private static Checkbox _cbColour;
 	private boolean _drawVectors=false;
+	private static Checkbox _cbVectors;
 	private boolean _drawField=true;
+	private static Checkbox _cbField;
 	private Drawing _drawing;
 
 	public MainGUI(int numCharges)
 	{
 		super("E-Field");
 		initBase(numCharges);
+		initInteractive();
+		this.pack();
+		this.setVisible(true);
 		generateField();
 		render();
+	}
+	
+	private void initInteractive()
+	{
+		JPanel display=new JPanel();
+		display.setLayout(new GridLayout(3,1));
+		_cbColour = new Checkbox("Draw coloured", _coloured);
+		_cbColour.addItemListener(new CheckboxListener());
+		_cbVectors = new Checkbox("Draw vectors", _drawVectors);
+		_cbVectors.addItemListener(new CheckboxListener());
+		_cbField = new Checkbox("Draw field", _drawField);
+		_cbField.addItemListener(new CheckboxListener());
+		display.add(_cbColour);
+		display.add(_cbVectors);
+		display.add(_cbField);
+		this.getContentPane().add(display, BorderLayout.EAST);
 	}
 	
 	private void initBase(int numCharges)
@@ -40,7 +66,6 @@ public class MainGUI extends JFrame {
 		_drawing=new Drawing();
 		_drawing.setSize(new Dimension(_width, _height));
 		this.getContentPane().add(_drawing, BorderLayout.CENTER);
-		this.setVisible(true);
 	}
 	
 	private void generateField()
@@ -76,5 +101,18 @@ public class MainGUI extends JFrame {
 		_drawing.drawVectors(_drawVectors);
 		_drawing.drawField(_drawField);
 		_drawing.setField(_field);
+	}
+	
+	class CheckboxListener implements ItemListener
+	{
+
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			_coloured = _cbColour.getState();
+			_drawVectors = _cbVectors.getState();
+			_drawField = _cbField.getState();
+			render();
+		}
+		
 	}
 }

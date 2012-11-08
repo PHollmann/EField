@@ -77,7 +77,7 @@ public class Drawing extends JPanel {
             		v.scale(20);
             		unit.scale(-10);
             		v.add(unit);
-            		g.setColor(Color.WHITE);
+            		g.setColor(Color.GREEN);
             		drawArrow(g,x, y, (int)(x+v.getX()), (int)(y+v.getY()));
             	}
             }
