@@ -38,6 +38,7 @@ public class MainGUI extends JFrame {
 		this.pack();
 		this.setVisible(true);
 		generateField();
+		_drawing.setField(_field);
 		render();
 	}
 	
@@ -74,6 +75,7 @@ public class MainGUI extends JFrame {
 					public void run()
 					{
 						generateField();
+						_drawing.setField(_field);
 						render();
 						generate.setText("Generate");
 						generate.setEnabled(true);
@@ -132,7 +134,8 @@ public class MainGUI extends JFrame {
 		_drawing.drawColored(_coloured);
 		_drawing.drawVectors(_drawVectors);
 		_drawing.drawField(_drawField);
-		_drawing.setField(_field);
+		_drawing.repaint();
+		//_drawing.setField(_field);
 	}
 	
 	class CheckboxListener implements ItemListener

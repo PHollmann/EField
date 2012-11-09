@@ -45,7 +45,14 @@ public class Drawing extends JPanel {
 	public void setField(EField2D field)
 	{
 		_field=field;
-		_norm = _field.getNormalizedField();
+		try {
+			long start=System.nanoTime();
+			_norm = _field.getNormalizedField();
+			System.out.println((System.nanoTime()-start)/1000000+" Milliseconds to normalize");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.repaint();
 	}
 	
@@ -56,7 +63,7 @@ public class Drawing extends JPanel {
         {
         	return;
         }
-        Graphics2D g=(Graphics2D)g1;
+        final Graphics2D g=(Graphics2D)g1;
         g.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         for (int x=0;x<_norm.length;x++)
         {
@@ -67,18 +74,18 @@ public class Drawing extends JPanel {
         }
         if (_showVectors)
 		{
-        	Charge2D[][] vectorField = _field.getField();
+        	final Charge2D[][] vectorField = _field.getField();
         	for (int x=10;x<vectorField.length;x+=10)
             {
             	for (int y=10;y<vectorField[x].length;y+=10)
             	{
             		Vector2D unit=vectorField[x-5][y-5].getVector().getUnitVector();
-            		Vector2D v=unit.clone();
-            		v.scale(20);
-            		unit.scale(-10);
-            		v.add(unit);
-            		g.setColor(Color.GREEN);
-            		drawArrow(g,x, y, (int)(x+v.getX()), (int)(y+v.getY()));
+                    Vector2D v=unit.clone();
+                    v.scale(20);
+                    unit.scale(-10);
+                    v.add(unit);
+                    g.setColor(Color.GREEN);
+                    drawArrow(g,x, y, (int)(x+v.getX()), (int)(y+v.getY()));
             	}
             }
 		}
@@ -142,7 +149,7 @@ public class Drawing extends JPanel {
 	   * @param xx The x location of the "head" of the arrow
 	   * @param yy The y location of the "head" of the arrow
 	   */
-	void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
+	private void drawArrow(Graphics g1, int x1, int y1, int x2, int y2) {
 		final int ARR_SIZE = 3;
         Graphics2D g = (Graphics2D) g1.create();
 

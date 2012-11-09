@@ -70,39 +70,18 @@ public class EField2D {
 		return _field;
 	}
 	
-	public MagnitudeCharge[][] getNormalizedField()
+	public MagnitudeCharge[][] getNormalizedField() throws InterruptedException
 	{
 		MagnitudeCharge[][] result=new MagnitudeCharge[_width][_height];
-		for (int x=0;x<_width;x++)
+		int processors = Runtime.getRuntime().availableProcessors()*2;
+		NormalizerThread[] threads=new NormalizerThread[processors];
+		for(int y=0; y < processors; y++) {
+		  threads[y] = new NormalizerThread(_field,result,y, processors,_charges,_scale, _maxPotential, _minPotential, max);
+		  threads[y].start();
+		}
+		for (int i=0;i<processors;i++)
 		{
-			for (int y=0;y<_height;y++)
-			{
-				double normalizedCharge=0;
-				if (_field[x][y].getVal()>0)
-				{
-					normalizedCharge=_field[x][y].getVal()/_maxPotential;
-				}
-				else
-				{
-					normalizedCharge=_field[x][y].getVal()/Math.abs(_minPotential);
-				}
-				double magnitude=_field[x][y].getVector().getAbs();
-				if (magnitude>Float.NEGATIVE_INFINITY&&magnitude<Float.POSITIVE_INFINITY)
-				{
-					result[x][y]=new MagnitudeCharge(magnitude/(max/_scale)>1 ? 1 : magnitude/(max/_scale), normalizedCharge);
-				}
-				else
-				{
-					if (magnitude<=Float.NEGATIVE_INFINITY)
-					{
-						result[x][y]=new MagnitudeCharge( -1 , normalizedCharge);
-					}
-					else
-					{
-						result[x][y]=new MagnitudeCharge( 1 , normalizedCharge);
-					}
-				}
-			}
+			threads[i].join();
 		}
 		return result;
 	}
