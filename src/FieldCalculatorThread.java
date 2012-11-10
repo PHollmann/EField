@@ -47,7 +47,7 @@ public class FieldCalculatorThread extends Thread {
 			ep.add(er);
 		}
 		ep.scale(1/(4*Math.PI*EField2D.EPSILON0));
-		if (ep.getAbs()>Float.NEGATIVE_INFINITY&&ep.getAbs()<Float.POSITIVE_INFINITY)
+		if (!new Double(ep.getAbs()).isInfinite())
 		{
 			if (ep.getAbs()>max)
 			{
@@ -61,7 +61,7 @@ public class FieldCalculatorThread extends Thread {
 				}
 			}
 		}
-		if (potentialSum>Float.NEGATIVE_INFINITY&&potentialSum<Float.POSITIVE_INFINITY)
+		if (!new Double(potentialSum).isInfinite())
 		{
 			if (potentialSum>_maxPotential)
 			{

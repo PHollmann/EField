@@ -10,11 +10,10 @@ public class Main {
 	public static void main(String[] args) {
 		try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-
-          } catch (Exception e) {
-            System.err.println("Look and feel not set.");
-          }
-		int count=100;
+        } catch (Exception e) {
+        	System.err.println("Look and feel not set.");
+        }
+		int count=1000;
 		if (args.length>0)
 		{
 			count=Integer.parseInt(args[0]);
