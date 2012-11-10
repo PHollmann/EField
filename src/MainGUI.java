@@ -9,7 +9,11 @@ import java.awt.event.ItemListener;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 
@@ -22,12 +26,20 @@ public class MainGUI extends JFrame {
 	private int _width;
 	private int _height;
 	private int _numCharges;
+	
 	private boolean _coloured=false;
-	private static Checkbox _cbColour;
 	private boolean _drawVectors=false;
-	private static Checkbox _cbVectors;
 	private boolean _drawField=true;
+	
+	private static Checkbox _cbColour;
+	private static Checkbox _cbVectors;
 	private static Checkbox _cbField;
+	
+	private JMenuBar _menuBar;
+	private JMenuItem _saveField;
+	private JMenuItem _saveImage;
+	private JMenuItem _loadField;
+	
 	private Drawing _drawing;
 
 	public MainGUI(int numCharges)
@@ -35,6 +47,7 @@ public class MainGUI extends JFrame {
 		super("E-Field");
 		initBase(numCharges);
 		initInteractive();
+		initMenuBar();
 		this.pack();
 		this.setVisible(true);
 		generateField();
@@ -86,6 +99,32 @@ public class MainGUI extends JFrame {
 			
 		});
 		this.getContentPane().add(generate, BorderLayout.SOUTH);
+	}
+	
+	private void initMenuBar()
+	{
+		_menuBar = new JMenuBar();
+		JMenu file = new JMenu("File");
+		JMenu saveAs = new JMenu("Save As");
+		
+		MenuBarListener menuListener = new MenuBarListener();
+		_saveField = new JMenuItem("Field (binary)");
+		_saveField.addActionListener(menuListener);
+		
+		_saveImage = new JMenuItem("Image (png)");
+		_saveImage.addActionListener(menuListener);
+		
+		_loadField = new JMenuItem("Load Field");
+		_loadField.addActionListener(menuListener);
+		
+		saveAs.add(_saveField);
+		saveAs.add(_saveImage);
+		file.add(_loadField);
+		file.add(saveAs);
+		
+		_menuBar.add(file);
+		
+		this.getContentPane().add(_menuBar, BorderLayout.NORTH);
 	}
 	
 	private void initBase(int numCharges)
@@ -140,13 +179,37 @@ public class MainGUI extends JFrame {
 	
 	class CheckboxListener implements ItemListener
 	{
-
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			_coloured = _cbColour.getState();
 			_drawVectors = _cbVectors.getState();
 			_drawField = _cbField.getState();
 			render();
+		}
+	}
+	
+	class MenuBarListener implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (arg0.getSource() == _saveField)
+			{
+				/*JFileChooser fc = new JFileChooser();
+				int returnVal = fc.showOpenDialog(MainGUI.this);
+		        if (returnVal == JFileChooser.APPROVE_OPTION)
+		        {
+		        	
+		        }*/
+			}
+			else if (arg0.getSource() == _saveImage)
+			{
+				
+			}
+			else if (arg0.getSource() == _loadField)
+			{
+				
+			}
 		}
 		
 	}

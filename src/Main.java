@@ -13,7 +13,7 @@ public class Main {
         } catch (Exception e) {
         	System.err.println("Look and feel not set.");
         }
-		int count=1000;
+		int count=10;
 		if (args.length>0)
 		{
 			count=Integer.parseInt(args[0]);

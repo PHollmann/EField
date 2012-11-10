@@ -90,4 +90,9 @@ public class EField2D {
 	{
 		return _charges;
 	}
+	
+	public void save()
+	{
+		
+	}
 }
