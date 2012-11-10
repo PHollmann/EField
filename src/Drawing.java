@@ -126,7 +126,7 @@ public class Drawing extends JPanel {
 		g.drawLine(x, y, x, y);
 	}
 	
-	public void save()
+	public void save(File f)
 	{
 	    Dimension size = this.getSize();
 	    BufferedImage image = (BufferedImage)this.createImage(size.width, size.height);
@@ -134,7 +134,7 @@ public class Drawing extends JPanel {
 	    this.paint(g);
 	    g.dispose();
 	    try      {
-	      ImageIO.write(image, "png", new File("image.png"));
+	      ImageIO.write(image, "png", f);
 	    }
 	    catch (IOException e){
 	      e.printStackTrace();

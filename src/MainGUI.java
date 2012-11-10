@@ -202,6 +202,7 @@ public class MainGUI extends JFrame {
 		        if (returnVal == JFileChooser.APPROVE_OPTION)
 		        {
 		        	File file = fc.getSelectedFile();
+		        	
 		        	try {
 						_field.save(file);
 					} catch (IOException e) {
@@ -212,7 +213,12 @@ public class MainGUI extends JFrame {
 			}
 			else if (arg0.getSource() == _saveImage)
 			{
-				
+				int returnVal = fc.showSaveDialog(MainGUI.this);
+		        if (returnVal == JFileChooser.APPROVE_OPTION)
+		        {
+		        	File file = fc.getSelectedFile();
+		        	_drawing.save(file);
+		        }
 			}
 			else if (arg0.getSource() == _loadField)
 			{
