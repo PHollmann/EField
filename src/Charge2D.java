@@ -1,5 +1,8 @@
+import java.io.Serializable;
 
-public class Charge2D {
+
+public class Charge2D implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private Vector2D _vector;
 	private double _val;
 	

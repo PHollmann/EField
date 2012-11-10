@@ -1,4 +1,12 @@
-public class EField2D {
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class EField2D implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private Charge2D[] _charges;
 	private int _width, _height;
 	public static final double EPSILON0=8.854*10e-12;
@@ -91,8 +99,16 @@ public class EField2D {
 		return _charges;
 	}
 	
-	public void save()
+	public void save(File f) throws IOException
 	{
-		
+		// Write to disk with FileOutputStream
+		FileOutputStream f_out = new FileOutputStream(f);
+
+		// Write object with ObjectOutputStream
+		ObjectOutputStream obj_out = new ObjectOutputStream(f_out);
+
+		// Write object out to disk
+		obj_out.writeObject(this);
+		obj_out.close();
 	}
 }

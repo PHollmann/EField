@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.JButton;
@@ -193,14 +195,20 @@ public class MainGUI extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			JFileChooser fc = new JFileChooser();
 			if (arg0.getSource() == _saveField)
 			{
-				/*JFileChooser fc = new JFileChooser();
-				int returnVal = fc.showOpenDialog(MainGUI.this);
+				int returnVal = fc.showSaveDialog(MainGUI.this);
 		        if (returnVal == JFileChooser.APPROVE_OPTION)
 		        {
-		        	
-		        }*/
+		        	File file = fc.getSelectedFile();
+		        	try {
+						_field.save(file);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		        }
 			}
 			else if (arg0.getSource() == _saveImage)
 			{
