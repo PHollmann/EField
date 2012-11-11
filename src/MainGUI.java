@@ -132,12 +132,12 @@ public class MainGUI extends JFrame {
 	private void initBase(int numCharges)
 	{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension dim = new Dimension(1000,650);
+		Dimension dim = new Dimension(1000,700);
 		this.setMinimumSize(dim);
 		this.setVisible(true);
 		_numCharges=numCharges;
 		_width=800;
-		_height=601;
+		_height=600;
 		_drawing=new Drawing();
 		_drawing.setSize(new Dimension(_width, _height));
 		this.getContentPane().add(_drawing, BorderLayout.CENTER);

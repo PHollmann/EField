@@ -111,4 +111,14 @@ public class EField2D implements Serializable{
 		obj_out.writeObject(this);
 		obj_out.close();
 	}
+	
+	public int getWidth()
+	{
+		return _width;
+	}
+	
+	public int getHeight()
+	{
+		return _height;
+	}
 }

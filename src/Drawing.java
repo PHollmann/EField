@@ -53,6 +53,7 @@ public class Drawing extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//this.setSize(_field.getWidth(), _field.getHeight());
 		this.repaint();
 	}
 	
@@ -63,6 +64,8 @@ public class Drawing extends JPanel {
         {
         	return;
         }
+        System.out.println("Repainting Drawing");
+		System.out.println(_field.getWidth()+"|"+_field.getHeight());
         final Graphics2D g=(Graphics2D)g1;
         g.setRenderingHint ( RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         for (int x=0;x<_norm.length;x++)
