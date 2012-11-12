@@ -9,7 +9,7 @@ public class EField2D implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Charge2D[] _charges;
 	private int _width, _height;
-	public static final double EPSILON0=8.854*10e-12;
+	public static final double EPSILON0=8.854e-12;
 	private Charge2D[][] _field;
 	private double max, min;
 	private double _scale;
